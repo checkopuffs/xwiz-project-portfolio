@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Buddy Mini • V0.2 Simulator</title>
+<style>
+:root{--pink:#f3a8c9;--pink2:#dd79ae;--ink:#252234;--bg:#fff8fc;--muted:#706678}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#ffeff7 2%,#fff9fc 54%,#f4ecff);color:var(--ink);font-family:ui-rounded,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+main{max-width:870px;padding:28px 20px 56px;margin:auto}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.16em;color:#ab5590;text-transform:uppercase;margin:0 0 6px}h1{font-size:clamp(26px,5vw,38px);margin:0}p{line-height:1.55}.lead{color:var(--muted);margin:9px 0 25px}.layout{display:flex;gap:35px;flex-wrap:wrap;align-items:center;justify-content:center}.toy-area{min-width:290px;display:flex;justify-content:center;padding:15px 12px 8px}.device{position:relative;width:280px;background:linear-gradient(135deg,#ffbadb 5%,var(--pink) 46%,#de78b0 100%);border:4px solid #a94c85;border-radius:40px;box-shadow:inset 0 5px 2px #ffe4f1,inset 0 -8px 4px #d670a5,0 18px 30px #a4448550; padding:22px 17px 20px;transition:transform .2s}.device:before{content:"";position:absolute;width:23px;height:23px;border:5px solid #ae5388;border-radius:50%;left:calc(50% - 16px);top:-29px;background:#ffe3f1;box-shadow:0 0 0 4px #ffe6f2}.device:after{content:"";position:absolute;left:50%;width:26px;height:7px;transform:translateX(-50%);bottom:7px;border-radius:12px;background:#dc7dae}.device:hover{transform:translateY(-2px)}.bezel{background:#292337;padding:10px;border-radius:22px;border:4px solid #fff0f7;box-shadow:inset 0 0 0 2px #211a2f,0 4px 0 #bc5c91}canvas{width:100%;height:auto;display:block;image-rendering:pixelated;border-radius:11px;background:#2b263c}.device-label{text-align:center;margin:12px 0 13px;font-weight:900;letter-spacing:.10em;color:#7a2d66;font-size:13px}.hardware{display:flex;justify-content:space-around;gap:10px;margin-top:7px}.key{width:56px;height:51px;border-radius:50%;background:linear-gradient(#fffefd,#ffe1ee);border:3px solid #c86b9b;box-shadow:0 4px 0 #ac4e84, inset 0 2px 0 white;color:#9b477e;font-size:17px;font-weight:900;cursor:pointer;touch-action:manipulation}.key:active{transform:translateY(3px);box-shadow:0 1px 0 #ac4e84}.key:focus-visible,.action:focus-visible,select:focus-visible{outline:3px solid #7760ee;outline-offset:3px}.button-labels{display:flex;justify-content:space-around;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#853b70;font-weight:800;margin:7px 0 9px}.button-labels span{width:56px;text-align:center}.panel{flex:1;min-width:285px;max-width:400px;background:#fff;border:1px solid #efdce7;border-radius:22px;padding:21px;box-shadow:0 12px 32px #bd81a122}.panel h2{font-size:20px;margin:0 0 8px}.hint{font-size:13px;color:var(--muted);margin:0 0 19px}.stat{display:flex;justify-content:space-between;margin-top:15px;font-weight:750;font-size:13px}.track{height:10px;border-radius:7px;background:#f2e9f0;overflow:hidden;margin:6px 0}.fill{height:100%;border-radius:8px;transition:width .4s ease}.fill.a{background:#ed72a4}.fill.b{background:#ffbc66}.fill.c{background:#8b9bf4}.badge{display:inline-flex;background:#fff1f8;color:#a4467c;border-radius:15px;padding:7px 11px;font-size:12px;font-weight:800}.panel-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.action{cursor:pointer;border:1px solid #dfc3d2;border-radius:12px;background:white;color:#814370;padding:9px 12px;font-weight:750;font-size:13px}.action:hover{background:#fff3f9}.hintbox{margin-top:21px;background:#fff4fa;border-radius:14px;padding:12px;font-size:13px;color:#76566d;line-height:1.5}.open-help{background:#fff;border:1px solid #edd4e2;border-radius:16px;padding:12px 15px;font-size:13px;color:#6a4b65;margin:0 0 16px}.small{font-size:12px;color:#897586;margin-top:18px}footer{text-align:center;margin-top:26px;color:#8f7d91;font-size:12px}.status{font-size:14px;color:#875f7b;font-weight:700;margin:3px 0 12px;min-height:22px}@media(prefers-reduced-motion:reduce){.fill{transition:none}.device{transition:none}}@media(max-width:670px){main{padding-top:24px}.layout{gap:17px}.toy-area{padding-top:20px}.panel{width:100%;min-width:0}} 
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Buddy Mini software prototype • 0.2</p>
+<h1>💗 Buddy Mini Simulator</h1>
+<p class="lead">Try your daughter's future pocket companion before the ESP32 and screen arrive. Tap Pet, Feed, or Play to see Buddy react. On a computer you can also use keys <b>1</b>, <b>2</b>, and <b>3</b>.</p>
+<p class="open-help"><strong>On an iPhone?</strong> The Files / ChatGPT document preview may not run interactive HTML. Open this file as a real web page in Safari (or open it on a computer). If you only see a preview, the buttons will not respond.</p>
+<div class="layout">
+<section class="toy-area" aria-label="Preview of Buddy Mini keychain">
+  <div class="device"><div class="bezel"><canvas id="screen" width="240" height="240" aria-label="Animated Buddy face"></canvas></div>
+  <div class="device-label">BUDDY MINI ♥</div>
+  <div class="hardware">
+  <button class="key" id="pet" aria-label="Pet Buddy">♥</button><button class="key" id="feed" aria-label="Feed Buddy">✦</button><button class="key" id="play" aria-label="Play with Buddy">★</button>
+  </div>
+  <div class="button-labels"><span>Pet</span><span>Feed</span><span>Play</span></div>
+  </div>
+</section>
+<section class="panel">
+<h2>Meet your little Buddy!</h2>
+<p class="hint">A simple V1 personality: expressive eyes, blinking, happiness, energy, hunger, and reactions to the three buttons.</p>
+<p id="message" class="status" aria-live="polite">Buddy is happy to meet you! 💗</p>
+<span class="badge" id="mood">Mood: Happy ✨</span>
+<div class="stat"><span>Happiness 💗</span><span id="happyNum">75%</span></div><div class="track"><div class="fill a" id="happyBar" style="width:75%"></div></div>
+<div class="stat"><span>Fullness 🍓</span><span id="foodNum">70%</span></div><div class="track"><div class="fill b" id="foodBar" style="width:70%"></div></div>
+<div class="stat"><span>Energy 🌙</span><span id="energyNum">80%</span></div><div class="track"><div class="fill c" id="energyBar" style="width:80%"></div></div>
+<div class="panel-actions"><button class="action" id="nap">🌙 Nap / Wake</button><button class="action" id="reset">↻ Start over</button><button class="action" id="sound">🔇 Sound off</button></div>
+<div class="hintbox"><b>What we're testing:</b> the character's expressions, button assignments and interactive behavior. This demo runs entirely in a browser with JavaScript enabled. On iPhone, a document preview is not an interactive browser.</div>
+<p class="small">Next: convert these expressions into 240×240 assets or ESP32 drawing functions, then wire the real display.</p>
+</section>
+</div>
+<footer>Buddy Mini V0.2 • Design prototype, not a battery or hardware test • Made for our DIY project</footer>
+</main>
+<script>
+(()=>{
+const c=document.getElementById('screen'),ctx=c.getContext('2d');
+const el=id=>document.getElementById(id);
+const initial={happy:75,food:70,energy:80,sleep:false};let state={...initial},expression='happy',expressionUntil=0,blinkUntil=0,lastBlink=0,messageTimeout=0,particles=[],soundOn=false;const clamp=v=>Math.max(0,Math.min(100,v));
+const round=(x,y,w,h,r,color)=>{
+  // Fallback for browsers without canvas roundRect().
+  r=Math.min(r,w/2,h/2);ctx.beginPath();
+  if(typeof ctx.roundRect==='function'){ctx.roundRect(x,y,w,h,r)}
+  else{ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y)}
+  ctx.fillStyle=color;ctx.fill()
+};
+function sound(f=700,d=.08){if(!soundOn)return;try{const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;const ac=new Audio();const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(f,ac.currentTime);g.gain.setValueAtTime(.035,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.connect(g).connect(ac.destination);o.start();o.stop(ac.currentTime+d);o.onended=()=>ac.close();}catch(e){}}
+function status(msg){el('message').textContent=msg;messageTimeout=Date.now()+5500}
+function update(){for(const [key,bar,num] of [['happy','happyBar','happyNum'],['food','foodBar','foodNum'],['energy','energyBar','energyNum']]){el(bar).style.width=state[key]+'%';el(num).textContent=Math.round(state[key])+'%'}el('mood').textContent='Mood: '+(state.sleep?'Sleepy 💤':state.food<25?'Hungry 🍓':state.energy<22?'Tired 🌙':state.happy<25?'Lonely 💔':expression==='excited'?'Excited ⭐':'Happy ✨');el('nap').textContent=state.sleep?'☀️ Wake Buddy':'🌙 Nap / Wake'}
+function emote(type,seconds=1.5){expression=type;expressionUntil=performance.now()+seconds*1000}
+function sparkle(kind){for(let i=0;i<9;i++)particles.push({kind,x:40+Math.random()*160,y:125+Math.random()*85,vx:(Math.random()-.5)*2.6,vy:-1.4-Math.random()*2.3,life:38+Math.random()*25})}
+function act(kind){if(state.sleep){state.sleep=false;status('Buddy woke up! ☀️')}
+if(kind==='pet'){state.happy=clamp(state.happy+17);emote('love',2);sparkle('heart');status('Aww! Buddy loves you! 💗');sound(740)}
+if(kind==='feed'){state.food=clamp(state.food+24);state.happy=clamp(state.happy+4);emote('yum',1.8);sparkle('berry');status('Yummy! Thanks for the snack! 🍓');sound(570)}
+if(kind==='play'){state.happy=clamp(state.happy+12);state.energy=clamp(state.energy-10);state.food=clamp(state.food-4);emote('excited',2);sparkle('star');status('YAY! Let’s play! ⭐');sound(920)}
+update()}
+for(const k of ['pet','feed','play'])el(k).addEventListener('click',()=>act(k));
+el('nap').onclick=()=>{state.sleep=!state.sleep;emote(state.sleep?'sleep':'happy',2);status(state.sleep?'Goodnight, Buddy! 💤':'Good morning, Buddy! ☀️');update()};
+el('reset').onclick=()=>{state={...initial};expression='happy';particles=[];status('Buddy is happy to meet you! 💗');update()};
+el('sound').onclick=()=>{soundOn=!soundOn;el('sound').textContent=soundOn?'🔊 Sound on':'🔇 Sound off';if(soundOn)sound(700)};
+document.addEventListener('keydown',e=>{if(e.key==='1')act('pet');if(e.key==='2')act('feed');if(e.key==='3')act('play')});
+let lastDecay=performance.now();
+function draw(now){
+if(now-lastDecay>4500){let tick=Math.min(5,Math.floor((now-lastDecay)/4500));if(state.sleep){state.energy=clamp(state.energy+tick*3)}else{state.food=clamp(state.food-tick*.4);state.energy=clamp(state.energy-tick*.22);state.happy=clamp(state.happy-tick*.16)}if(state.food<15)state.happy=clamp(state.happy-tick*.3);lastDecay=now;update()}
+if(now>expressionUntil&&!state.sleep)expression=state.happy<25?'sad':state.energy<20?'sleepy':'happy';if(!state.sleep&&now-lastBlink>2300+Math.sin(now/1100)*900){lastBlink=now;blinkUntil=now+125}
+const blink=now<blinkUntil||state.sleep;
+ctx.fillStyle='#28243b';ctx.fillRect(0,0,240,240);
+const gradient=ctx.createLinearGradient(0,0,240,240);gradient.addColorStop(0,'#373049');gradient.addColorStop(1,'#242038');ctx.fillStyle=gradient;ctx.fillRect(0,0,240,240);
+for(let i=0;i<13;i++){let x=((i*79+22)%228)+5,y=((i*53+19)%160)+4,alpha=.1+.11*(1+Math.sin(now/600+i))/2;ctx.fillStyle=`rgba(255,199,226,${alpha})`;ctx.fillRect(x,y,2,2)}
+// Ears, body and soft face
+round(35,57,170,151,63,'#fdcce0');round(49,46,46,66,21,'#f9b9d3');round(145,46,46,66,21,'#f9b9d3');round(58,58,28,42,15,'#ec86b0');round(154,58,28,42,15,'#ec86b0');round(41,75,158,132,63,'#ffdfed');round(57,187,127,18,9,'#ef9abf');
+// Rosy cheeks
+ctx.fillStyle='#ff9fc5';ctx.globalAlpha=.66;ctx.beginPath();ctx.ellipse(74,148,19,11,0,0,Math.PI*2);ctx.ellipse(166,148,19,11,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+ctx.strokeStyle='#38233e';ctx.lineWidth=6;ctx.lineCap='round';
+if(expression==='love'&&!blink){ctx.font='42px system-ui';ctx.textAlign='center';ctx.fillStyle='#e84f99';ctx.fillText('♥',86,138);ctx.fillText('♥',155,138)}
+else if(blink||expression==='yum'||expression==='sleepy'){ctx.beginPath();ctx.moveTo(69,127);ctx.quadraticCurveTo(88,134,105,127);ctx.moveTo(135,127);ctx.quadraticCurveTo(153,134,171,127);ctx.stroke()}
+else if(expression==='excited'){ctx.beginPath();ctx.moveTo(67,138);ctx.lineTo(84,113);ctx.lineTo(104,138);ctx.moveTo(136,138);ctx.lineTo(154,113);ctx.lineTo(173,138);ctx.stroke()}
+else{round(76,111,22,35,11,'#32223c');round(142,111,22,35,11,'#32223c');round(82,116,7,10,5,'white');round(148,116,7,10,5,'white')}
+if(expression==='sad'){ctx.beginPath();ctx.moveTo(103,174);ctx.quadraticCurveTo(120,157,137,174);ctx.stroke()}
+else if(expression==='yum'){ctx.fillStyle='#cd5393';round(108,160,24,22,12,'#b04d85');round(112,172,16,9,6,'#fa91bd')}
+else if(state.sleep||expression==='sleepy'){ctx.beginPath();ctx.moveTo(111,171);ctx.lineTo(129,171);ctx.stroke();ctx.font='23px system-ui';ctx.fillStyle='#e5b5ff';ctx.fillText('z',187,74);ctx.fillText('Z',204,55)}
+else{ctx.beginPath();ctx.moveTo(107,163);ctx.quadraticCurveTo(120,179,133,163);ctx.stroke()}
+// Pixel-sized notification text
+ctx.font='bold 13px ui-rounded,system-ui,sans-serif';ctx.fillStyle='#ffe1ee';ctx.textAlign='center';ctx.fillText(state.sleep?'sweet dreams…':expression==='love'?'love you!':expression==='excited'?'so much fun!':expression==='yum'?'yummy!':'hi, bestie!',120,226);
+for(let i=particles.length-1;i>=0;i--){let p=particles[i];ctx.font=(p.kind==='heart'?20:18)+'px system-ui';ctx.textAlign='center';ctx.globalAlpha=Math.min(1,p.life/18);ctx.fillText(p.kind==='heart'?'💗':p.kind==='star'?'✨':'🍓',p.x,p.y);ctx.globalAlpha=1;p.x+=p.vx;p.y+=p.vy;p.life--;if(p.life<=0)particles.splice(i,1)}
+requestAnimationFrame(draw)}
+update();requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
